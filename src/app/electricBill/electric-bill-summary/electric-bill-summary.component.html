@@ -1,0 +1,107 @@
+<nav class="navbar bg-warning">
+    <h2 style="margin-left: 500px;">Electricity Bill Record</h2>
+</nav>
+<nav class="navbar bg-dark">
+    <form class="container-fluid justify-content-start">
+        <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="electricBill()">+Add ElectricityBill</button>
+        <button class="btn btn-outline-warning me-2" type="button" (click)="showSummary()">Summary</button>
+    </form>
+</nav>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">ElectricityBill Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="ElectricityBillForm">
+                    <input type="date" class="form-control" placeholder="Bill Period" formControlName="billPeriod">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Billing Day's" formControlName="billingDays">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Total Service Charges" formControlName="totalServiceCharges">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Other Charges and Credit" formControlName="otherChargesAndCredit">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Previous Balance" formControlName="previousBalance">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Total Charges" formControlName="totalCharges">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Reward and Event Charges" formControlName="rewardsAndEventsCharge">
+                    <br>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit Form</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table" *ngIf="summaryShow">
+    <thead>
+        <tr>
+            <th scope="col">Bill Period</th>
+            <th scope="col">Billing Day's</th>
+            <th scope="col">Total Service Charges</th>
+            <th scope="col">Other Charges and Credit</th>
+            <th scope="col">Previous Balance</th>
+            <th scope="col">Total Charges</th>
+            <th scope="col">Reward and Event Charges</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr *ngFor="let row of electricBillDetails">
+            <td>{{row.billPeriod}}</td>
+            <td>{{row.billingDays}}</td>
+            <td>{{row.totalServiceCharges}}</td>
+            <td>{{row.otherChargesAndCredit}}</td>
+            <td>{{row.previousBalance}}</td>
+            <td>{{row.totalCharges}}</td>
+            <td>{{row.rewardsAndEventsCharge}}</td>
+            <td>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate" (click)="editElectricBill(row.billPeriod)">Edit</button>
+                &nbsp;
+                <button type="button" class="btn btn-danger" (click)="removeElectricBill(row.billPeriod)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">ElectricityBill Details Update</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="ElectricityBillForming">
+                    <input type="date" class="form-control" placeholder="Bill Period" formControlName="billPeriod">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Billing Day's" formControlName="billingDays">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Total Service Charges" formControlName="totalServiceCharges">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Other Charges and Credit" formControlName="otherChargesAndCredit">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Previous Balance" formControlName="previousBalance">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Total Charges" formControlName="totalCharges">
+                    <br>
+                    <input type="number" class="form-control" placeholder="Reward and Event Charges" formControlName="rewardsAndEventsCharge">
+                    <br>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary" (click)="onUpdate()">Update Form</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
